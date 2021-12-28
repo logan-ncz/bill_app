@@ -8,7 +8,6 @@ import Logout from "./Logout.js"
 export const filteredBills = (data, status) => {
   return (data && data.length) ?
     data.filter(bill => {
-
       let selectCondition
 
       // in jest environment
@@ -19,7 +18,7 @@ export const filteredBills = (data, status) => {
         const userEmail = JSON.parse(localStorage.getItem("user")).email
         selectCondition =
           (bill.status === status) &&
-          [...USERS_TEST, userEmail].includes(bill.email)
+          ![...USERS_TEST, userEmail].includes(bill.email)
       }
 
       return selectCondition
@@ -67,10 +66,10 @@ export const getStatus = (index) => {
 }
 
 export default class {
-  constructor({ document, onNavigate, firestore, bills, localStorage }) {
+  constructor({ document, onNavigate, store, bills, localStorage }) {
     this.document = document
     this.onNavigate = onNavigate
-    this.firestore = firestore
+    this.store = store
     $('#arrow-icon1').click((e) => this.handleShowTickets(e, bills, 1))
     $('#arrow-icon2').click((e) => this.handleShowTickets(e, bills, 2))
     $('#arrow-icon3').click((e) => this.handleShowTickets(e, bills, 3))
@@ -155,17 +154,17 @@ export default class {
 
   // not need to cover this function by tests
   getBillsAllUsers = () => {
-    if (this.firestore) {
-      return this.firestore
+    if (this.store) {
+      return this.store
       .bills()
-      .get()
+      .list()
       .then(snapshot => {
-        const bills = snapshot.docs
+        const bills = snapshot
         .map(doc => ({
           id: doc.id,
-          ...doc.data(),
-          date: doc.data().date,
-          status: doc.data().status
+          ...doc,
+          date: doc.date,
+          status: doc.status
         }))
         return bills
       })
@@ -175,10 +174,10 @@ export default class {
     
   // not need to cover this function by tests
   updateBill = (bill) => {
-    if (this.firestore) {
-    return this.firestore
-      .bill(bill.id)
-      .update(bill)
+    if (this.store) {
+    return this.store
+      .bills()
+      .update({data: JSON.stringify(bill), selector: bill.id})
       .then(bill => bill)
       .catch(console.log)
     }
