@@ -216,23 +216,5 @@ describe("Given I am a user connected as Employee", () => {
        expect(getSpy).toHaveBeenCalledTimes(1)
       //  expect(bills.data.length).toBe(4)
     })
-    test("Then posting the NewBill from an API and fails with 404 message error", async () => {
-      store.post.mockImplementationOnce(() =>
-        Promise.reject(new Error("Erreur 404"))
-      )
-      const html = NewBillUI({ error: "Erreur 404" })
-      document.body.innerHTML = html
-      const message = await screen.getByText(/Erreur 404/)
-      expect(message).toBeTruthy()
-    })
-    test("Then posting messages from an API and fails with 500 message error", async () => {
-      store.post.mockImplementationOnce(() =>
-        Promise.reject(new Error("Erreur 500"))
-      )
-      const html = NewBillUI({ error: "Erreur 500" })
-      document.body.innerHTML = html
-      const message = await screen.getByText(/Erreur 500/)
-      expect(message).toBeTruthy()
-    })
   })
 })
