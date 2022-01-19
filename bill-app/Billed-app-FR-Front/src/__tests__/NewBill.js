@@ -1,8 +1,6 @@
 import { screen, waitFor } from "@testing-library/dom"
 import { localStorageMock } from "../__mocks__/localStorage.js"
-import userEvent from "@testing-library/user-event"
 import { fireEvent } from "@testing-library/dom"
-import { prettyDOM } from "@testing-library/dom"
 import NewBillUI from "../views/NewBillUI.js"
 import { ROUTES, ROUTES_PATH } from "../constants/routes.js"
 import store from "../__mocks__/store"
