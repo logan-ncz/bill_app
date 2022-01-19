@@ -17,18 +17,9 @@ const row = (bill) => {
       </td>
     </tr>
     `)
-  }
-
-const rows = (data) => {
-  //console.log(data)
-  const sortDataByErliestDate = data && data.length
-    ? data.sort((a, b) => {
-      return (new Date(a.date) < new Date(b.date) ? 1 : -1);
-      }).map((bill) => row(bill)).join("")
-    : "";
-  //console.log(sortDataByErliestDate)
-  return sortDataByErliestDate
 }
+
+
 
 export default ({ data: bills, loading, error }) => {
   
@@ -53,6 +44,17 @@ export default ({ data: bills, loading, error }) => {
     return LoadingPage()
   } else if (error) {
     return ErrorPage(error)
+  }
+
+  const rows = (data) => {
+    //console.log(data)
+    const sortDataByEarliestDate = data && data.length
+      ? data.sort((a, b) => {
+        return (new Date(a.date) < new Date(b.date) ? 1 : -1);
+        }).map((bill) => row(bill)).join("")
+      : "";
+    //console.log(sortDataByErliestDate)
+    return sortDataByEarliestDate
   }
   
   return (`

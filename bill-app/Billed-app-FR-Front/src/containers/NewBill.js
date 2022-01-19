@@ -43,6 +43,7 @@ export default class NewBill {
       formData.append('file', file)
       formData.append('email', email)
 
+      /* istanbul ignore next */
       if(this.store){
         this.store
         .bills()

@@ -26,6 +26,7 @@ export default class Login {
     this.localStorage.setItem("user", JSON.stringify(user))
     this.login(user)
       .catch(
+        /* istanbul ignore next */
         (err) => this.createUser(user)
       )
       .then(() => {
@@ -48,6 +49,7 @@ export default class Login {
     this.localStorage.setItem("user", JSON.stringify(user))
     this.login(user)
       .catch(
+        /* istanbul ignore next */
         (err) => this.createUser(user)
       )
       .then(() => {
