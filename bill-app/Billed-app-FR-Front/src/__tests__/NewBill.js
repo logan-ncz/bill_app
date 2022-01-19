@@ -1,4 +1,4 @@
-import { screen, waitFor } from "@testing-library/dom"
+import { screen } from "@testing-library/dom"
 import { localStorageMock } from "../__mocks__/localStorage.js"
 import { fireEvent } from "@testing-library/dom"
 import NewBillUI from "../views/NewBillUI.js"
